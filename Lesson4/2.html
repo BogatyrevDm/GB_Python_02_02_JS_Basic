@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Homework</title>
 </head>
+
 <body>
-<!--
+  <!--
 Необязательное задание, но желательно сделать.
 
 Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
@@ -47,10 +49,81 @@
 что-нибудь пропустить.
 4. Если непонятно условие - задайте вопрос.
 -->
-<script>
-  "use strict";
+  <script>
+    "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
-</script>
+    // Стиль es5
+    function PostES5(author, text) {
+      this.author = author;
+      this.text = text;
+      this.dateTime = new Date();
+    }
+
+    PostES5.prototype.edit = function (text) {
+      this.text = text;
+      this.dateTime = new Date();
+    }
+
+    function AttachedPostES5(author, text) {
+      PostES5.call(this, author, text);
+      this.highlighted = false;
+    }
+
+    AttachedPostES5.prototype = Object.create(PostES5.prototype);
+    AttachedPostES5.prototype.constructor = AttachedPostES5;
+    AttachedPostES5.prototype.makeTextHighlighted = function () {
+      this.highlighted = !this.highlighted;
+    }
+
+    console.log('Стиль ES5');
+
+    const firstAttachedPostES5 = new AttachedPostES5('User1', 'Hello world attached');
+    console.log(firstAttachedPostES5);
+    firstAttachedPostES5.edit('Good buy world attached');
+    firstAttachedPostES5.makeTextHighlighted();
+    console.log(firstAttachedPostES5);
+
+    const firstPostES5 = new PostES5('User1', 'Hello world');
+    console.log(firstPostES5);
+    firstPostES5.edit('Good buy world');
+    console.log(firstPostES5);
+
+    // Стиль es6
+    class PostES6 {
+      constructor(author, text) {
+        this.author = author;
+        this.text = text;
+        this.dateTime = new Date();
+      }
+      edit(text) {
+        this.text = text;
+        this.dateTime = new Date();
+      }
+    }
+
+    class AttachedPostES6 extends PostES6 {
+      constructor(author, text) {
+        super(author, text);
+        this.highlighted = false;
+      }
+      makeTextHighlighted() {
+        this.highlighted = !this.highlighted;
+      }
+    }
+
+    console.log('Стиль ES6');
+
+    const firstAttachedPostES6 = new AttachedPostES6('User1', 'Hello world attached');
+    console.log(firstAttachedPostES6);
+    firstAttachedPostES6.edit('Good buy world attached');
+    firstAttachedPostES6.makeTextHighlighted();
+    console.log(firstAttachedPostES6);
+
+    const firstPostES6 = new PostES6('User1', 'Hello world');
+    console.log(firstPostES6);
+    firstPostES6.edit('Good buy world');
+    console.log(firstPostES6);
+  </script>
 </body>
+
 </html>
